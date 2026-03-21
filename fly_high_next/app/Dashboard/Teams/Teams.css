@@ -1,0 +1,137 @@
+.teams-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1.5rem);
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.teams-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2, 0.5rem);
+    flex-wrap: wrap;
+    gap: var(--space-3, 1rem);
+}
+
+.teams-header-row .dashboard-heading {
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    /* Sjednoceno se zápasy */
+    gap: var(--space-4, 1.5rem);
+    width: 100%;
+}
+
+.team-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, 1rem);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.75rem;
+    gap: 1rem;
+}
+
+.team-name {
+    font-size: var(--fs-h3, 1.25rem);
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+    word-break: break-word;
+}
+
+.team-role-badge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.role-owner {
+    background: rgba(244, 63, 94, 0.15);
+    color: #f43f5e;
+}
+
+.role-coach {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.role-player {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+.team-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--small, 0.9rem);
+    color: var(--typo-ghost-color);
+}
+
+.team-code {
+    font-family: monospace;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: var(--foreground);
+    letter-spacing: 1px;
+}
+
+.teams-empty-state {
+    text-align: center;
+    padding: var(--space-6, 3rem);
+    color: var(--typo-ghost-color);
+    width: 100%;
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.unclickable-card {
+    cursor: default;
+}
+
+.unclickable-card:hover {
+    transform: none;
+    border-color: var(--glassed-border);
+}

@@ -1,0 +1,148 @@
+.FaqHero {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+
+    background: var(--background);
+    border: var(--glassed-border);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    color: var(--primary-foreground);
+}
+
+.FaqTitle {
+    font-size: var(--fs-h1);
+    font-weight: 800;
+    color: var(--primary-foreground);
+    margin-bottom: var(--space-2);
+    text-shadow: var(--glassed-box-shadow);
+}
+
+.FaqSubtitle {
+    font-size: var(--lead);
+    color: var(--typo-subheading-color);
+    margin: 0 auto;
+    max-width: 700px;
+}
+
+/* ======================================================
+   CATEGORY CARD
+   ====================================================== */
+.FaqCategoryCard {
+    width: 100%;
+    max-width: 900px;
+
+    background: var(--background);
+    border: var(--glassed-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--glassed-box-shadow);
+    color: var(--primary-foreground);
+}
+
+.CategoryHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: var(--glassed-border);
+}
+
+.CategoryHeader h2 {
+    margin: 0;
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--primary-foreground);
+}
+
+/* ======================================================
+   ACCORDION STYLES
+   ====================================================== */
+.CategoryItems {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.AccordionWrapper {
+    border-radius: var(--radius-md);
+    background: var(--primary-foreground);
+    transition: background 0.2s ease;
+    overflow: hidden;
+}
+
+.AccordionWrapper:hover {
+    background: var(--primary-foreground);
+}
+
+.AccordionWrapper.open {
+    background: var(--background);
+}
+
+.AccordionHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--primary-foreground);
+}
+
+.QuestionText {
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-right: var(--space-3);
+}
+
+.AccordionIcon {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--primary-foreground);
+}
+
+.AccordionContent {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.AccordionWrapper.open .AccordionContent {
+    max-height: 200px;
+}
+
+.AccordionInner {
+    padding: 0 var(--space-4) var(--space-4) var(--space-4);
+    color: var(--primary-foreground);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ======================================================
+   RESPONSIVE
+   ====================================================== */
+@media (max-width: 600px) {
+    .FaqHero, .FaqCategoryCard {
+        padding: var(--space-4);
+        gap: calc(var(--space-5) * 2);
+    }
+
+    .CategoryHeader h2 {
+        font-size: 1.25rem;
+    }
+
+    .QuestionText {
+        font-size: 0.95rem;
+    }
+}

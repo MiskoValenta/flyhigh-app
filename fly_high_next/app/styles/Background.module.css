@@ -1,0 +1,91 @@
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+
+    background-color: hsl(var(--background));
+
+    overflow-x: hidden;
+    transition: background-color 0.3s ease;
+}
+
+/* ================= VRSTVA POZADÍ (ORBS) ================= */
+.backgroundLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* ================= VRSTVA OBSAHU ================= */
+.content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* ================= ORB STYLY ================= */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+/* --- Orb 1 --- */
+.orb1 {
+    background-color: hsl(var(--orb-1));
+
+    width: 70vw; height: 70vw;
+    top: -10%; left: -10%;
+    animation: move1 25s ease-in-out infinite alternate;
+}
+
+/* --- Orb 2 --- */
+.orb2 {
+    background-color: hsl(var(--orb-2));
+
+    width: 60vw; height: 60vw;
+    top: 10%; right: -20%;
+    animation: move2 20s ease-in-out infinite alternate;
+}
+
+/* --- Orb 3 --- */
+.orb3 {
+    background-color: hsl(var(--orb-3));
+
+    width: 80vw; height: 80vw;
+    bottom: -20%; left: -15%;
+    animation: move3 28s ease-in-out infinite alternate;
+}
+
+/* --- Orb 4 --- */
+.orb4 {
+    background-color: hsl(var(--orb-4));
+
+    width: 50vw; height: 50vw;
+    bottom: 10%; right: 10%;
+    animation: move4 22s ease-in-out infinite alternate;
+}
+
+/* ================= ANIMACE ================= */
+@keyframes move1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(10vw, 10vh) scale(1.2); }
+}
+@keyframes move2 {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(20deg) scale(1.1); }
+}
+@keyframes move3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-10vw, -10vh) scale(0.9); }
+}
+@keyframes move4 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(15vw, -15vh) scale(1.1); }
+}

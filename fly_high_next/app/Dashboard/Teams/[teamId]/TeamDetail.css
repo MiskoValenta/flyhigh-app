@@ -1,0 +1,198 @@
+.team-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.team-detail-header {
+    padding: var(--space-5);
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.badge-role {
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--small);
+    font-weight: 700;
+}
+
+.team-description {
+    margin-top: var(--space-3);
+    color: var(--typo-ghost-color);
+    line-height: 1.5;
+}
+
+.team-members-section h2 {
+    font-size: var(--fs-h3);
+    margin-bottom: var(--space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: var(--space-2);
+}
+
+.members-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    transition: background 0.2s ease;
+}
+
+.member-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.member-email {
+    font-weight: 600;
+    font-size: var(--body);
+}
+
+.member-role {
+    font-size: var(--meta);
+    font-weight: 500;
+}
+
+.role-select {
+    padding: 0.15rem 0.4rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glassed-border);
+    font-size: var(--meta);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    color: inherit;
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.role-select option {
+    background: var(--background);
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.role-owner {
+    color: #f43f5e;
+}
+
+.role-coach {
+    color: #f59e0b;
+}
+
+.role-member {
+    color: var(--typo-ghost-color);
+}
+
+.member-status {
+    font-size: var(--small);
+    font-weight: 600;
+}
+
+.member-status.active {
+    color: #10b981;
+}
+
+.member-status.inactive {
+    color: var(--typo-ghost-color);
+    opacity: 0.6;
+}
+
+.team-title-nomargin {
+    margin: 0;
+}
+
+.section-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+}
+
+.add-member-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.form-control {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--glassed-border);
+    background: var(--background);
+    color: var(--foreground);
+    transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.btn-add-member {
+    align-self: flex-start;
+    margin-top: 0.5rem;
+}
+
+.team-events-section {
+    margin-top: 1.5rem;
+}
+
+.team-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--space-2);
+}
+
+@media (max-width: 640px) {
+    .member-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+
+    .team-actions {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+}

@@ -1,0 +1,305 @@
+/* ======================================================
+   HERO SECTION WRAPPER
+   ====================================================== */
+.HeroSection {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* ======================================================
+   CENTER CONTENT
+   ====================================================== */
+.HeroContent {
+    position: relative;
+    z-index: 10;
+    padding: var(--space-4);
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.HeroGlassCard {
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+
+    background: var(--background);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow: var(--glassed-box-shadow);
+}
+
+.HeroTitle {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    color: var(--typo-heading-color);
+}
+
+.HeroSubtitle {
+    font-size: var(--lead);
+    color: var(--typo-subheading-color);
+    max-width: 600px;
+    margin: 0 auto var(--space-6) auto;
+    line-height: var(--lh-sub);
+    padding: var(--space-2);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* ======================================================
+   BUTTONS
+   ====================================================== */
+.HeroButtons {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.HeroBtn {
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.HeroBtn.Primary {
+    background: linear-gradient(90deg, #ec4899 0%, #be185d 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+}
+
+.HeroBtn.Primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6);
+}
+
+.HeroBtn.Secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--typo-heading-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.HeroBtn.Secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* ======================================================
+   BACKGROUND FLOATING ELEMENTS
+   ====================================================== */
+.HeroBackground {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.FloatingElement {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255,255,255,0.7);
+
+    /* Animace bere proměnnou --rot, kterou definujeme níže */
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- OPRAVA: DEFINICE --rot PRO KAŽDOU KARTU --- */
+
+.Card-1 {
+    top: 15%;
+    right: 10%;
+    width: 200px;
+    height: 140px;
+
+    --rot: -10deg; /* Definice úhlu */
+    transform: rotate(var(--rot)) scale(0.9);
+
+    z-index: 1;
+    animation-delay: 0s;
+}
+
+.Card-2 {
+    bottom: 20%;
+    left: 8%;
+    width: 180px;
+    height: 120px;
+
+    --rot: 15deg; /* Definice úhlu */
+    transform: rotate(var(--rot)) scale(0.8);
+
+    z-index: 2;
+    animation-delay: 1s;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+}
+
+.Card-3 {
+    bottom: 15%;
+    right: 15%;
+    width: 220px;
+    height: 150px;
+
+    --rot: -5deg;
+    transform: rotate(var(--rot));
+
+    z-index: 1;
+    animation-delay: 2s;
+}
+
+/* ORBS */
+.FloatingOrb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 60%, transparent 80%);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    animation: float 5s ease-in-out infinite;
+}
+
+.Orb-1 {
+    width: 80px;
+    height: 80px;
+    top: 12%;
+    left: 25%;
+    opacity: 0.6;
+    filter: blur(2px);
+    animation-delay: 0.5s;
+}
+
+.Orb-2 {
+    width: 50px;
+    height: 50px;
+    bottom: 15%;
+    left: 40%;
+    opacity: 0.4;
+    filter: blur(1px);
+    animation-delay: 2.5s;
+}
+
+.FloatingGrid {
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 150px;
+    height: 100px;
+
+    background-image:
+            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+
+    transform: perspective(300px) rotateY(20deg) rotateX(10deg);
+    opacity: 0.5;
+
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.MiniCardHeader {
+    width: 80%;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.MiniDot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+}
+
+.MiniLine {
+    width: 60%;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+.MiniLineShort {
+    width: 40%;
+    height: 6px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+.MiniChart {
+    width: 80%;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 40px;
+}
+
+.FloatingIcon {
+    font-size: 2rem;
+    color: #38bdf8;
+}
+
+.FloatingIconSmall {
+    font-size: 1.5rem;
+    color: #f472b6;
+}
+
+.FloatingIconBig {
+    font-size: 3rem;
+    color: #a78bfa;
+    filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5));
+}
+
+.MiniRows {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.MiniRow {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(var(--rot, 0deg));
+    }
+    50% {
+        transform: translateY(-20px) rotate(var(--rot, 0deg));
+    }
+}
+
+@media (max-width: 900px) {
+    .FloatingElement, .FloatingGrid {
+        opacity: 0.3;
+        transform: scale(0.6) !important;
+    }
+    .Card-1 { right: -20px; top: 5%; }
+    .Card-2 { left: -20px; bottom: 10%; }
+    .Card-3 { display: none; }
+
+    .HeroTitle {
+        font-size: 2.5rem;
+    }
+}

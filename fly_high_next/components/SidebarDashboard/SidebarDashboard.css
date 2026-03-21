@@ -1,0 +1,190 @@
+.sidebar-dashboard {
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background: var(--background);
+    border-right: 1px solid var(--glassed-border, rgba(255, 255, 255, 0.1));
+    backdrop-filter: var(--glassed-backdrop-filter, blur(10px));
+    -webkit-backdrop-filter: var(--glassed-webkit-backdrop-filter, blur(10px));
+    box-shadow: var(--glassed-box-shadow, 2px 0 10px rgba(0, 0, 0, 0.1));
+
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-dashboard-logo {
+    padding: var(--space-4) var(--space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 0.75rem);
+    text-decoration: none;
+}
+
+.sidebar-logo-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.sidebar-logo-text {
+    font-family: var(--font-rock-salt, sans-serif);
+    font-size: var(--fs-h4, 1.5rem);
+    color: var(--primary, #e11d48);
+}
+
+.sidebar-dashboard-nav {
+    flex: 1;
+    padding: var(--space-4) var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    overflow-y: auto;
+}
+
+.sidebar-dashboard-nav a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-3);
+    border-radius: var(--radius-md, 0.5rem);
+    color: var(--typo-ghost-color, #a1a1aa);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--body, 1rem);
+    transition: all 0.2s ease;
+}
+
+.sidebar-icon {
+    font-size: 1.25rem;
+}
+
+.sidebar-dashboard-nav a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--foreground, #ffffff);
+}
+
+.sidebar-dashboard-nav a.active {
+    background: var(--primary, #e11d48);
+    color: var(--primary-foreground, #ffffff);
+    box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
+}
+
+.sidebar-dashboard-footer {
+    padding: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-3);
+    background: transparent;
+    border: 1px solid var(--destructive, #ef4444);
+    color: var(--destructive, #ef4444);
+    border-radius: var(--radius-md, 0.5rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: var(--destructive, #ef4444);
+    color: var(--destructive-foreground, #ffffff);
+}
+
+.mobile-sidebar-toggle {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .sidebar-dashboard {
+        transform: translateX(-100%);
+        z-index: 10001;
+        background: var(--background, #09090b);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .sidebar-dashboard.open {
+        transform: translateX(0);
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-sidebar-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        padding: 0 var(--space-4, 1rem);
+        background: var(--background, #09090b);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 9999;
+        box-sizing: border-box;
+    }
+
+    .mobile-logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mobile-logo-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .mobile-logo-text {
+        font-family: var(--font-rock-salt, sans-serif);
+        font-size: var(--fs-h5, 1.2rem);
+        color: var(--primary, #e11d48);
+    }
+
+    .mobile-toggle-btn {
+        background: none;
+        border: none;
+        color: var(--foreground, #ffffff);
+        cursor: pointer;
+        padding: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-toggle-icon {
+        font-size: 1.75rem;
+    }
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        z-index: 10000;
+    }
+}

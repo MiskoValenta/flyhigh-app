@@ -28,9 +28,6 @@
     max-width: 700px;
 }
 
-/* ======================================================
-   CATEGORY CARD
-   ====================================================== */
 .FaqCategoryCard {
     width: 100%;
     max-width: 900px;
@@ -62,9 +59,6 @@
     color: var(--primary-foreground);
 }
 
-/* ======================================================
-   ACCORDION STYLES
-   ====================================================== */
 .CategoryItems {
     display: flex;
     flex-direction: column;
@@ -129,11 +123,10 @@
     line-height: 1.6;
 }
 
-/* ======================================================
-   RESPONSIVE
-   ====================================================== */
 @media (max-width: 600px) {
-    .FaqHero, .FaqCategoryCard {
+
+    .FaqHero,
+    .FaqCategoryCard {
         padding: var(--space-4);
         gap: calc(var(--space-5) * 2);
     }

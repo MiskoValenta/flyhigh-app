@@ -126,6 +126,37 @@
     font-size: 0.9rem;
 }
 
+.profile-settings-card {
+    margin-top: var(--space-4, 1.5rem);
+}
+
+.theme-setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3, 1rem);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-md, 8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.theme-setting-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.setting-label {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--typo-heading-color, #fff);
+}
+
+.setting-description {
+    font-size: 0.85rem;
+    color: var(--typo-subheading-color, #9ca3af);
+}
+
 @media (max-width: 992px) {
     .profile-container {
         padding: 1.5rem;
@@ -145,6 +176,14 @@
 
     .profile-title {
         font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .theme-setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
 }
 

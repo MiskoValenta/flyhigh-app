@@ -152,7 +152,6 @@
     transform: none;
 }
 
-/* Historie setů */
 .sets-history-card {
     padding: var(--space-4, 1.5rem);
 }

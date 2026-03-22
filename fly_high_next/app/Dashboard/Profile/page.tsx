@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { ThemeToggle } from "@/app/theme-toggle";
 import { getCurrentUser, updateProfile, changePassword } from '@/lib/api';
 import { UserProfile } from '@/types/user';
 import './Profile.css';
@@ -148,6 +149,19 @@ export default function ProfilePage() {
                         </button>
                     </div>
                 </form>
+            </div>
+
+            <div className="glass-card profile-settings-card">
+                <h2 className="Profile-title">Vzhled aplikace</h2>
+                <div className="theme-setting-row">
+                    <div className="theme-setting-info">
+                        <span className="setting-label">Změna motivu</span>
+                        <span className="setting-description">Vyber si mezi světlým a tmavým rozlišením.</span>
+                    </div>
+                    <div className="theme-setting-action">
+                        <ThemeToggle />
+                    </div>
+                </div>
             </div>
         </div>
     );

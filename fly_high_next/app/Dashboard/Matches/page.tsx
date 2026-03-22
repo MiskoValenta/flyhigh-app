@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { getMyMatches, acceptMatch, rejectMatch, cancelMatch } from '@/lib/matchApi';
 import { getMyTeams } from '@/lib/teamApi';
 import { Match } from '@/types/match';
+import { IoLocation } from "react-icons/io5";
 import './Matches.css';
 
 export default function MatchesPage() {
@@ -66,8 +67,11 @@ export default function MatchesPage() {
         }
     };
 
-    if (isLoading) return <div className="matches-container"><div className="glass-card"><p>Načítám zápasy...</p></div></div>;
-    if (error) return <div className="matches-container"><p className="error-alert">{error}</p></div>;
+    if (isLoading)
+        return <div className="matches-container"><div className="glass-card"><p>Načítám zápasy...</p></div></div>;
+
+    if (error)
+        return <div className="matches-container"><p className="error-alert">{error}</p></div>;
 
     const proposedMatches = matches.filter(m => m.status === 'Proposed');
     const activeMatches = matches.filter(m => m.status !== 'Proposed' && m.status !== 'Rejected' && m.status !== 'Cancelled');
@@ -104,7 +108,9 @@ export default function MatchesPage() {
                                         <div className="team-name team-away">{match.awayTeamName}</div>
                                     </div>
 
-                                    <div className="match-location">📍 {match.location}</div>
+                                    <div className="match-location">
+                                        <IoLocation className='icon-left' /> {match.location}
+                                    </div>
 
                                     {canManageAway ? (
                                         <div className="match-actions">

@@ -1,6 +1,7 @@
 ﻿using Domain.Value_Objects.Users;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
@@ -10,7 +11,9 @@ public static class ClaimsPrincipalExtensions
 {
   public static Guid GetUserId(this ClaimsPrincipal user)
   {
-    var userIdString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    var userIdString = user.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    ?? user.FindFirst(JwtRegisteredClaimNames.Sub)?.Value
+                    ?? user.FindFirst("sub")?.Value;
 
     if (string.IsNullOrEmpty(userIdString))
     {

@@ -6,6 +6,7 @@ import { getMatchById, addMatchPoint } from '@/lib/matchApi';
 import { getCurrentUser } from '@/lib/api';
 import { Match, MatchSet } from '@/types/match';
 import { UserProfile } from '@/types/user';
+import { IoLocation } from "react-icons/io5";
 import './Live.css';
 
 export default function LiveMatchPage() {
@@ -80,16 +81,14 @@ export default function LiveMatchPage() {
                     {matchStatus === 'InProgress' && <span className="live-badge">● LIVE</span>}
                     {matchStatus === 'Finished' && <span className="event-badge badge-success">ZÁPAS UKONČEN</span>}
                     {matchStatus === 'Cancelled' && <span className="event-badge badge-danger">ZÁPAS ZRUŠEN</span>}
-                    <span className="text-gray-500">📍 {match.location}</span>
+                    <span className="text-gray-500"> <IoLocation className="icon-left" /> {match.location}</span>
                 </div>
 
                 <div className="main-score-display">
-                    {/* Domácí */}
                     <div className="team-score-block">
                         <div className="team-name-live home">{match.homeTeamName || 'Domácí'}</div>
                         <div className="score-number">{currentSet?.homeScore ?? 0}</div>
 
-                        {/* Ovládání pro tvůrce */}
                         {isCreator && matchStatus === 'InProgress' && (
                             <button
                                 className="btn-score btn-score-home"
@@ -103,12 +102,10 @@ export default function LiveMatchPage() {
 
                     <div className="score-divider">:</div>
 
-                    {/* Hosté */}
                     <div className="team-score-block">
                         <div className="team-name-live away">{match.awayTeamName || 'Hosté'}</div>
                         <div className="score-number">{currentSet?.awayScore ?? 0}</div>
 
-                        {/* Ovládání pro tvůrce */}
                         {isCreator && matchStatus === 'InProgress' && (
                             <button
                                 className="btn-score btn-score-away"
@@ -122,7 +119,6 @@ export default function LiveMatchPage() {
                 </div>
             </div>
 
-            {/* HISTORIE SETŮ */}
             {sets.length > 0 && (
                 <div className="glass-card sets-history-card">
                     <h3 className="sets-title">Průběh setů</h3>

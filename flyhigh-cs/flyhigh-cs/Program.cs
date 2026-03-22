@@ -113,15 +113,31 @@ namespace API
       using (var scope = app.Services.CreateScope())
       {
         var services = scope.ServiceProvider;
-        try
+        var context = services.GetRequiredService<FlyHighDbContext>();
+
+        int retries = 5;
+        while (retries > 0)
         {
-          var context = services.GetRequiredService<FlyHighDbContext>();
-          context.Database.Migrate();
-          Console.WriteLine("Databáze byla úspěšně migrována!");
-        }
-        catch (Exception ex)
-        {
-          Console.WriteLine($"Chyba při migraci databáze: {ex.Message}");
+          try
+          {
+            context.Database.Migrate();
+            Console.WriteLine("Databáze byla úspěšně migrována!");
+            break;
+          }
+          catch (Exception ex)
+          {
+            retries--;
+            Console.WriteLine($"Databáze ještě není připravena. Zbývá pokusů: {retries}. Čekám 3 sekundy...");
+
+            if (retries == 0)
+            {
+              Console.WriteLine($"Kritická chyba při migraci: {ex.Message}");
+            }
+            else
+            {
+              Thread.Sleep(3000);
+            }
+          }
         }
       }
 

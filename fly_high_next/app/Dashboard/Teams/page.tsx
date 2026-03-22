@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMyTeams, getPendingInvites, acceptTeamInvite, declineTeamInvite } from '@/lib/teamApi';
+import { Team, TeamRole } from '@/types/team';
 import './Teams.css';
+import { stringify } from "querystring";
 
 export default function TeamsPage() {
     const router = useRouter();
-    const [teams, setTeams] = useState<any[]>([]);
+    const [teams, setTeams] = useState<Team[]>([]);
     const [invitations, setInvitations] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
@@ -51,12 +53,19 @@ export default function TeamsPage() {
         }
     };
 
-    const getRoleBadge = (role: string) => {
+    const getRoleBadge = (role: TeamRole | 'Pending' | string) => {
         switch (role) {
-            case 'Owner': return { label: 'Majitel', className: 'role-owner' };
-            case 'Coach': return { label: 'Trenér', className: 'role-coach' };
-            case 'Pending': return { label: 'Pozvánka', className: 'role-coach' };
-            default: return { label: 'Hráč', className: 'role-player' };
+            case 'Owner':
+                return { label: 'Majitel', className: 'role-owner' };
+
+            case 'Coach':
+                return { label: 'Trenér', className: 'role-coach' };
+
+            case 'Pending':
+                return { label: 'Pozvánka', className: 'role-coach' };
+
+            default:
+                return { label: 'Hráč', className: 'role-player' };
         }
     };
 
@@ -147,8 +156,8 @@ export default function TeamsPage() {
             ) : teams.length > 0 && (
                 <div className="teams-grid">
                     {teams.map((team) => {
-                        const teamId = team.id || team.Id;
-                        const roleInfo = getRoleBadge(team.role || team.Role);
+                        const teamId = team.id;
+                        const roleInfo = getRoleBadge(team.role || 'Member');
 
                         return (
                             <div
@@ -157,23 +166,23 @@ export default function TeamsPage() {
                                 onClick={() => router.push(`/Dashboard/Teams/${teamId}`)}
                             >
                                 <div className="team-header">
-                                    <h2 className="team-name">{team.teamName || team.TeamName}</h2>
+                                    <h2 className="team-name">{team.teamName}</h2>
                                     <span className={`team-role-badge ${roleInfo.className}`}>
                                         {roleInfo.label}
                                     </span>
                                 </div>
 
                                 <div className="team-details">
-                                    {(team.joinCode || team.JoinCode) && (
+                                    {team.joinCode && (
                                         <div className="detail-row">
                                             <span>Kód týmu:</span>
-                                            <span className="team-code">{team.joinCode || team.JoinCode}</span>
+                                            <span className="team-code">{team.joinCode}</span>
                                         </div>
                                     )}
                                     <div className="detail-row">
                                         <span>Založeno:</span>
                                         <span>
-                                            {new Date(team.createdAt || team.CreatedAt || Date.now()).toLocaleDateString('cs-CZ')}
+                                            {new Date(team.createdAt || Date.now()).toLocaleDateString('cs-CZ')}
                                         </span>
                                     </div>
                                 </div>

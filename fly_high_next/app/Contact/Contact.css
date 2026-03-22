@@ -112,7 +112,6 @@
 
 .ContactInfoCard {
     flex: 1;
-    /* Menší šířka */
     min-width: 280px;
     align-self: flex-start;
     margin-top: 80px;

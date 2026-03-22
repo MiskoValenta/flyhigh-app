@@ -90,16 +90,13 @@ footer {
     .footer-container {
         display: grid;
         grid-template-columns: 1fr auto;
-        /* brand takes available space, socials hugs content */
         grid-template-rows: auto auto;
         gap: 8px 12px;
         align-items: center;
         padding: 8px clamp(10px, 4vw, 16px);
         font-size: 0.95rem;
-        /* slightly smaller to help everything fit */
     }
 
-    /* Brand on the left of the top row */
     .footer-brand {
         grid-column: 1;
         grid-row: 1;
@@ -108,11 +105,9 @@ footer {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        /* space between logo and text if present */
         max-width: 100%;
     }
 
-    /* Social icons on the right of the top row */
     .footer-socials {
         grid-column: 2;
         grid-row: 1;
@@ -122,10 +117,8 @@ footer {
         gap: 0.5rem;
     }
 
-    /* Menu spans full width below, centered items and wraps if needed */
     .footer-menu {
         grid-column: 1 / -1;
-        /* span both columns */
         grid-row: 2;
         justify-self: center;
         width: 100%;
@@ -133,12 +126,10 @@ footer {
         justify-content: center;
         gap: var(--space-1);
         flex-wrap: wrap;
-        /* wrap menu items to avoid overflow */
         margin-top: 6px;
         padding-bottom: var(--space-1);
     }
 
-    /* Optional niceties to prevent overflow and keep things compact */
     .footer-container img,
     .footer-brand img {
         max-height: 36px;
@@ -146,7 +137,6 @@ footer {
         display: block;
     }
 
-    /* Reduce padding of individual items so everything fits better on tiny screens */
     .footer-brand,
     .footer-socials,
     .footer-menu>* {

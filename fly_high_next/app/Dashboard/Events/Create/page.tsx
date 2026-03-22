@@ -6,12 +6,13 @@ import { getMyTeams } from '@/lib/teamApi';
 import { eventApi } from '@/lib/eventApi';
 import { getCurrentUser, isManagerRole } from '@/lib/api';
 import { EventType } from '@/types/event';
+import { Team } from '@/types/team';
 import './CreateEvent.css';
 
 export default function CreateEventPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
-    const [managerTeams, setManagerTeams] = useState<any[]>([]);
+    const [managerTeams, setManagerTeams] = useState<Team[]>([]);
 
     const [teamId, setTeamId] = useState('');
     const [title, setTitle] = useState('');
@@ -95,7 +96,7 @@ export default function CreateEventPage() {
                         <label className="form-label" htmlFor="teamId">Tým</label>
                         <select className="form-control" id="teamId" value={teamId} onChange={(e) => setTeamId(e.target.value)} required>
                             {managerTeams.map(t => (
-                                <option key={t.id || t.Id} value={t.id || t.Id}>{t.teamName || t.TeamName}</option>
+                                <option key={t.id} value={t.id}>{t.teamName}</option>
                             ))}
                         </select>
                     </div>

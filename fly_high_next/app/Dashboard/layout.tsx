@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import SidebarDashboard from "@/components/SidebarDashboard/SidebarDashboard";
 import { fetchWithAuth } from "@/lib/apiClient";
 import "./DashboardLayout.css";
+import { getCurrentUser } from "@/lib/api";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,13 +15,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetchWithAuth("/Auth/me");
-
-                if (res.ok) {
-                    setIsAuthenticated(true);
-                } else {
-                    router.push("/");
-                }
+                await getCurrentUser();
+                setIsAuthenticated(true);
             } catch (error) {
                 console.error("Auth check failed:", error);
                 router.push("/");
@@ -33,10 +29,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }, [router]);
 
     if (isLoading) {
-        return <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', color: 'white' }}>Načítám prostředí...</div>;
+        return <div className="dashboard-loading-screen">Načítám prostředí...</div>;
     }
 
-    if (!isAuthenticated) return null;
+    if (!isAuthenticated)
+        return null;
 
     return (
         <div className="dashboard-layout-container">

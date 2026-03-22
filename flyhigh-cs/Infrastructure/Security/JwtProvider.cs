@@ -18,11 +18,15 @@ public class JwtProvider : IJwtProvider
   {
     var claims = new[]
     {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.GivenName, user.FirstName),
-            new Claim(ClaimTypes.Surname, user.LastName)
-        };
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.Value.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        
+        new Claim(ClaimTypes.NameIdentifier, user.Id.Value.ToString()),
+        new Claim(ClaimTypes.Email, user.Email),
+
+        new Claim(ClaimTypes.GivenName, user.FirstName),
+        new Claim(ClaimTypes.Surname, user.LastName)
+    };
 
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

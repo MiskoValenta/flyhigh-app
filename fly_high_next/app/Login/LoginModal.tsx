@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./LoginModal.css";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import { forgotPassword } from "@/lib/api";
+import { login, register, forgotPassword } from "@/lib/api";
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -62,22 +62,11 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         const safeEmail = email.trim().toLowerCase();
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ email: safeEmail, password }),
-            });
-
-            if (res.ok) {
-                router.push("/Dashboard");
-                onClose();
-            } else {
-                const data = await res.json();
-                setError(data.message || "Chyba při přihlášení. Zkontrolujte údaje.");
-            }
-        } catch (err) {
-            setError("Chyba serveru. Zkuste to prosím později.");
+            await login({ email: safeEmail, password });
+            router.push("/Dashboard");
+            onClose();
+        } catch (err: any) {
+            setError(err.message || "Chyba při přihlášení. Zkontrolujte údaje.");
         } finally {
             setIsLoading(false);
         }
@@ -99,27 +88,16 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         const safeLastName = lastName.trim();
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({
-                    firstName: safeFirstName,
-                    lastName: safeLastName,
-                    email: safeEmail,
-                    password
-                }),
+            await register({
+                firstName: safeFirstName,
+                lastName: safeLastName,
+                email: safeEmail,
+                password
             });
-
-            if (res.ok) {
-                router.push("/Dashboard");
-                onClose();
-            } else {
-                const data = await res.json();
-                setError(data.message || "Registrace selhala. Tento email už pravděpodobně někdo využívá.");
-            }
-        } catch (err) {
-            setError("Chyba serveru. Zkuste to prosím později.");
+            router.push("/Dashboard");
+            onClose();
+        } catch (err: any) {
+            setError(err.message || "Registrace selhala. Tento email už pravděpodobně někdo využívá.");
         } finally {
             setIsLoading(false);
         }
@@ -153,8 +131,12 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     };
 
     const getSubText = () => {
-        if (isForgotPassword) return "Zadejte svůj e-mail a my vám zašleme nové dočasné heslo.";
-        if (isRegister) return "Vytvořte si účet a spravujte svůj tým efektivně.";
+        if (isForgotPassword)
+            return "Zadejte svůj e-mail a my vám zašleme nové dočasné heslo.";
+
+        if (isRegister)
+            return "Vytvořte si účet a spravujte svůj tým efektivně.";
+
         return "Vítejte zpět! Přihlašte se ke svému účtu.";
     };
 
@@ -170,7 +152,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 <p className="LoginSubText">{getSubText()}</p>
 
                 {error && <div className="LoginError">{error}</div>}
-                {successMessage && <div className="LoginError" style={{ backgroundColor: "rgba(74, 222, 128, 0.1)", color: "#4ade80", border: "1px solid rgba(74, 222, 128, 0.4)" }}>{successMessage}</div>}
+
+                {successMessage && <div className="LoginSuccess">{successMessage}</div>}
 
                 <form
                     className="LoginForm"
@@ -239,8 +222,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
                     )}
 
                     {!isRegister && !isForgotPassword && (
-                        <div style={{ textAlign: "right", marginTop: "-0.5rem", marginBottom: "1rem" }}>
-                            <button type="button" className="ForgotPasswordLink" onClick={toggleForgotPassword} style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                        <div className="ForgotPasswordWrapper">
+                            <button type="button" className="ForgotPasswordLink" onClick={toggleForgotPassword}>
                                 Zapomněli jste heslo?
                             </button>
                         </div>

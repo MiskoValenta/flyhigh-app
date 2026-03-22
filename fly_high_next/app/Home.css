@@ -1,6 +1,3 @@
-/* ======================================================
-   HERO SECTION WRAPPER
-   ====================================================== */
 .HeroSection {
     position: relative;
     width: 100%;
@@ -11,9 +8,6 @@
     overflow: hidden;
 }
 
-/* ======================================================
-   CENTER CONTENT
-   ====================================================== */
 .HeroContent {
     position: relative;
     z-index: 10;
@@ -40,7 +34,7 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: var(--space-6);
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     color: var(--typo-heading-color);
 }
 
@@ -51,12 +45,9 @@
     margin: 0 auto var(--space-6) auto;
     line-height: var(--lh-sub);
     padding: var(--space-2);
-    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* ======================================================
-   BUTTONS
-   ====================================================== */
 .HeroButtons {
     display: flex;
     gap: var(--space-4);
@@ -72,7 +63,7 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     border: none;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .HeroBtn.Primary {
@@ -98,9 +89,6 @@
     transform: translateY(-2px);
 }
 
-/* ======================================================
-   BACKGROUND FLOATING ELEMENTS
-   ====================================================== */
 .HeroBackground {
     position: absolute;
     inset: 0;
@@ -110,7 +98,7 @@
 
 .FloatingElement {
     position: absolute;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     backdrop-filter: blur(4px);
@@ -120,13 +108,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: rgba(255,255,255,0.7);
-
-    /* Animace bere proměnnou --rot, kterou definujeme níže */
+    color: rgba(255, 255, 255, 0.7);
     animation: float 6s ease-in-out infinite;
 }
 
-/* --- OPRAVA: DEFINICE --rot PRO KAŽDOU KARTU --- */
 
 .Card-1 {
     top: 15%;
@@ -134,7 +119,7 @@
     width: 200px;
     height: 140px;
 
-    --rot: -10deg; /* Definice úhlu */
+    --rot: -10deg;
     transform: rotate(var(--rot)) scale(0.9);
 
     z-index: 1;
@@ -147,12 +132,12 @@
     width: 180px;
     height: 120px;
 
-    --rot: 15deg; /* Definice úhlu */
+    --rot: 15deg;
     transform: rotate(var(--rot)) scale(0.8);
 
     z-index: 2;
     animation-delay: 1s;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
 }
 
 .Card-3 {
@@ -168,12 +153,11 @@
     animation-delay: 2s;
 }
 
-/* ORBS */
 .FloatingOrb {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.1) 60%, transparent 80%);
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1) 60%, transparent 80%);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     animation: float 5s ease-in-out infinite;
 }
 
@@ -205,8 +189,8 @@
     height: 100px;
 
     background-image:
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
 
     transform: perspective(300px) rotateY(20deg) rotateX(10deg);
@@ -225,21 +209,21 @@
 .MiniDot {
     width: 8px;
     height: 8px;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
 }
 
 .MiniLine {
     width: 60%;
     height: 6px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 }
 
 .MiniLineShort {
     width: 40%;
     height: 6px;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
 }
 
@@ -277,29 +261,197 @@
 .MiniRow {
     width: 100%;
     height: 6px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
 }
 
+.video-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-6) var(--space-4);
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #000;
+}
+
+.promo-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.video-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #000;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.video-hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-wrapper:hover .video-hover-overlay {
+    opacity: 1;
+}
+
+.video-hover-overlay span {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.VideoModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-4);
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+.VideoModalContent {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    background: #000;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.VideoModalClose {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.VideoModalClose:hover {
+    background: rgba(239, 68, 68, 0.8);
+    transform: scale(1.1);
+}
+
+.VideoModalPlayer {
+    width: 100%;
+    max-height: 85vh;
+    display: block;
+    outline: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0) rotate(var(--rot, 0deg));
     }
+
     50% {
         transform: translateY(-20px) rotate(var(--rot, 0deg));
     }
 }
 
 @media (max-width: 900px) {
-    .FloatingElement, .FloatingGrid {
+
+    .FloatingElement,
+    .FloatingGrid {
         opacity: 0.3;
         transform: scale(0.6) !important;
     }
-    .Card-1 { right: -20px; top: 5%; }
-    .Card-2 { left: -20px; bottom: 10%; }
-    .Card-3 { display: none; }
+
+    .Card-1 {
+        right: -20px;
+        top: 5%;
+    }
+
+    .Card-2 {
+        left: -20px;
+        bottom: 10%;
+    }
+
+    .Card-3 {
+        display: none;
+    }
 
     .HeroTitle {
         font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-section {
+        padding: var(--space-4) var(--space-2);
+    }
+
+    .video-wrapper {
+        border-radius: var(--radius-md);
     }
 }

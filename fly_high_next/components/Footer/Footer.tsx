@@ -19,7 +19,7 @@ export const Footer = () => {
                 <div className="footer-menu">
                     <p>Copyright © {current_year}</p>
                     <p><a href="/FAQ">Maturitní Práce</a></p>
-                    <p><a href="mailto:d22623@oaopava.cz">d22623@oaopava.cz</a></p>
+                    <p><a>Michael Valenta | 4.D</a></p>
                 </div>
                 <div className="footer-socials">
                     <Link href="/"><IoLogoInstagram></IoLogoInstagram></Link>

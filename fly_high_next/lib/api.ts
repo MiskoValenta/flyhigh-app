@@ -5,7 +5,49 @@ const isClient = typeof window !== 'undefined';
 
 export const BASE_URL = isClient
     ? '/api'
-    : `${process.env.INTERNAL_BACKEND_URL || 'http://localhost:5000'}/api`;
+    : `${process.env.INTERNAL_BACKEND_URL || 'http://flyhigh_backend:5000'}/api`;
+
+export const login = async (credentials: any) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(credentials),
+    });
+
+    if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.message || "Chyba při přihlášení. Zkontrolujte údaje.");
+    }
+
+    return res.json().catch(() => ({}));
+};
+
+export const logout = async () => {
+    const res = await fetchWithAuth('/Auth/logout', { method: 'POST' });
+
+    if (!res.ok) {
+        throw new Error("Nepodařilo se odhlásit ze serveru.");
+    }
+
+    return res;
+};
+
+export const register = async (userData: any) => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(userData),
+    });
+
+    if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.message || "Registrace selhala. Tento email už pravděpodobně někdo využívá.");
+    }
+
+    return res.json().catch(() => ({}));
+};
 
 export const getCurrentUser = async (): Promise<UserProfile> => {
     const res = await fetchWithAuth('/auth/me', {

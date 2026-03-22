@@ -85,7 +85,7 @@ export default function CreateMatchPage() {
                     {error && <div className="error-message">{error}</div>}
 
                     <div className="form-group">
-                        <label htmlFor="homeTeamId">Váš tým (Domácí) *</label>
+                        <label htmlFor="homeTeamId">Váš tým</label>
                         <select
                             id="homeTeamId"
                             name="homeTeamId"
@@ -102,7 +102,7 @@ export default function CreateMatchPage() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="awayTeamId">ID Hostujícího Týmu (Away) *</label>
+                        <label htmlFor="awayTeamId">ID Hostujícího Týmu</label>
                         <input
                             type="text"
                             id="awayTeamId"
@@ -115,7 +115,7 @@ export default function CreateMatchPage() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="location">Místo konání *</label>
+                        <label htmlFor="location">Místo konání</label>
                         <input
                             type="text"
                             id="location"
@@ -128,7 +128,7 @@ export default function CreateMatchPage() {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="scheduledAt">Datum a Čas *</label>
+                        <label htmlFor="scheduledAt">Datum a Čas</label>
                         <input
                             type="datetime-local"
                             id="scheduledAt"

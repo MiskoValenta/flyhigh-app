@@ -184,6 +184,47 @@
     margin-top: var(--space-2);
 }
 
+.icon-left {
+    margin-right: 8px;
+    vertical-align: text-bottom;
+    font-size: 1.2em;
+}
+
+.flex-start-actions {
+    justify-content: flex-start !important;
+}
+
+.team-actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, 0.75rem);
+    margin-top: 1.5rem;
+    align-items: flex-start;
+}
+
+.actions-primary-row,
+.actions-secondary-row {
+    display: flex;
+    gap: var(--space-3, 0.75rem);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn-nowrap {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.icon-left {
+    margin-right: 8px;
+    font-size: 1.2em;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 640px) {
     .member-item {
         flex-direction: column;

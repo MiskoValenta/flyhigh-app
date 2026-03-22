@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getTeamEvents, respondToEvent, deleteEvent } from '@/lib/eventApi';
 import { TeamEvent, EventResponse, EventType } from '@/types/event';
+import { IoLocationOutline, IoClose } from "react-icons/io5";
 import './DashboardEvents.css';
 
 interface DashboardEventsProps {
@@ -128,14 +129,14 @@ export default function DashboardEvents({ teamIds, currentUserId }: DashboardEve
                                         onClick={() => handleDelete(ev.id)}
                                         title="Smazat událost"
                                     >
-                                        ✕
+                                        <IoClose />
                                     </button>
                                 )}
                             </div>
                         </div>
 
                         {ev.description && <p className="event-description">{ev.description}</p>}
-                        {ev.location && <div className="event-location">📍 {ev.location}</div>}
+                        {ev.location && <div className="event-location"><IoLocationOutline className="icon-left" /> {ev.location}</div>}
 
                         {canVote && (
                             <div className="event-footer">

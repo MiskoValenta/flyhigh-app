@@ -176,6 +176,29 @@
     background-color: #ef4444;
 }
 
+.flex-wrap-center {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4, 1rem);
+    flex-wrap: wrap;
+}
+
+.btn-danger {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md, 8px);
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
     .rosters-grid {
         grid-template-columns: 1fr;

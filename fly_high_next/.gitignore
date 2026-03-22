@@ -39,3 +39,10 @@ tsbuildinfo
 .DS_Store?
 ._*
 Thumbs.db
+
+# next-video
+public-vid/*
+!public-vid/*.json
+!public-vid/*.js
+!public-vid/*.ts
+public/_next-video

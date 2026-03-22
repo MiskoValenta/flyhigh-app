@@ -10,79 +10,123 @@ import {
     IoStatsChart,
     IoPeople,
     IoAnalytics,
+    IoClose
 } from "react-icons/io5";
+
 import LoginModal from "@/app/Login/LoginModal";
 
 export default function Hero() {
 
     const [isLoginOpen, setLoginOpen] = useState(false);
+    const [isVideoModalOpen, setVideoModalOpen] = useState(false);
 
     return (
-        <div className="section-container">
+        <>
+            <div className="section-container">
 
-            <div className="HeroBackground">
-                <div className="FloatingElement Card-1">
-                    <div className="MiniCardHeader">
-                        <div className="MiniDot"></div>
-                        <div className="MiniLine"></div>
+                <div className="HeroBackground">
+                    <div className="FloatingElement Card-1">
+                        <div className="MiniCardHeader">
+                            <div className="MiniDot"></div>
+                            <div className="MiniLine"></div>
+                        </div>
+                        <div className="MiniChart">
+                            <IoStatsChart className="FloatingIcon" />
+                            <div className="ChartLine"></div>
+                        </div>
                     </div>
-                    <div className="MiniChart">
-                        <IoStatsChart className="FloatingIcon" />
-                        <div className="ChartLine"></div>
+
+                    <div className="FloatingElement Card-2">
+                        <div className="MiniCardHeader">
+                            <IoPeople className="FloatingIconSmall" />
+                            <div className="MiniLineShort"></div>
+                        </div>
+                        <div className="MiniRows">
+                            <div className="MiniRow"></div>
+                            <div className="MiniRow"></div>
+                        </div>
                     </div>
+
+                    <div className="FloatingElement Card-3">
+                        <IoAnalytics className="FloatingIconBig" />
+                        <div className="MiniGraphCurve"></div>
+                    </div>
+
+                    <div className="FloatingOrb Orb-1"></div>
+                    <div className="FloatingOrb Orb-2"></div>
+                    <div className="FloatingGrid"></div>
                 </div>
 
-                <div className="FloatingElement Card-2">
-                    <div className="MiniCardHeader">
-                        <IoPeople className="FloatingIconSmall" />
-                        <div className="MiniLineShort"></div>
-                    </div>
-                    <div className="MiniRows">
-                        <div className="MiniRow"></div>
-                        <div className="MiniRow"></div>
-                    </div>
-                </div>
+                <div className="HeroContent">
+                    <div className="HeroGlassCard">
+                        <h1 className="HeroTitle">
+                            Volejbalový management pro moderní týmy
+                        </h1>
 
-                <div className="FloatingElement Card-3">
-                    <IoAnalytics className="FloatingIconBig" />
-                    <div className="MiniGraphCurve"></div>
-                </div>
+                        <p className="HeroSubtitle">
+                            Konec papírování a chaosu v chatu. Fly High spojuje správu týmu,
+                            statistiky zápasů a tréninkové plány do jedné jednoduché aplikace.
+                        </p>
 
-                <div className="FloatingOrb Orb-1"></div>
-                <div className="FloatingOrb Orb-2"></div>
-                <div className="FloatingGrid"></div>
-            </div>
+                        <div className="HeroButtons">
+                            <Link href="/Features">
+                                <Button className="HeroBtn Primary">
+                                    Zjistit více
+                                </Button>
+                            </Link>
 
-            <div className="HeroContent">
-                <div className="HeroGlassCard">
-                    <h1 className="HeroTitle">
-                        Volejbalový management pro moderní týmy
-                    </h1>
-
-                    <p className="HeroSubtitle">
-                        Konec papírování a chaosu v chatu. Fly High spojuje správu týmu,
-                        statistiky zápasů a tréninkové plány do jedné jednoduché aplikace.
-                    </p>
-
-                    <div className="HeroButtons">
-                        <Link href="/About">
-                            <Button className="HeroBtn Primary">
-                                Zjistit více
+                            <Button className="HeroBtn Secondary" onClick={() => setLoginOpen(true)}>
+                                Vstoupit do aplikace
                             </Button>
-                        </Link>
+                        </div>
+                    </div>
+                </div>
 
-                        <Button className="HeroBtn Secondary" onClick={() => setLoginOpen(true)}>
-                            Vstoupit do aplikace
-                        </Button>
+                <LoginModal
+                    isOpen={isLoginOpen}
+                    onClose={() => setLoginOpen(false)}
+                />
+
+            </div>
+            <div className="section-container video-section">
+                <div className="video-wrapper" onClick={() => setVideoModalOpen(true)}>
+                    <video
+                        className="promo-video"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    >
+                        <source src="/mat-vid-mp4.mp4" type="video/mp4" />
+                        Váš prohlížeč nepodporuje přehrávání videa.
+                    </video>
+                    <div className="video-hover-overlay">
+                        <span>Přehrát se zvukem</span>
                     </div>
                 </div>
             </div>
 
-            <LoginModal
-                isOpen={isLoginOpen}
-                onClose={() => setLoginOpen(false)}
-            />
+            {isVideoModalOpen && (
+                <div className="VideoModalOverlay" onClick={() => setVideoModalOpen(false)}>
+                    <div className="VideoModalContent" onClick={(e) => e.stopPropagation()}>
 
-        </div>
+                        <button className="VideoModalClose" onClick={() => setVideoModalOpen(false)}>
+                            <IoClose />
+                        </button>
+
+                        <video
+                            className="VideoModalPlayer"
+                            controls
+                            autoPlay
+                            playsInline
+                        >
+                            <source src="/mat-vid-mp4.mp4" type="video/mp4" />
+                            Váš prohlížeč nepodporuje přehrávání videa.
+                        </video>
+
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

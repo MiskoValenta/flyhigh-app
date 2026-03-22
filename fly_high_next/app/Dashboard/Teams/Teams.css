@@ -28,7 +28,6 @@
 .teams-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    /* Sjednoceno se zápasy */
     gap: var(--space-4, 1.5rem);
     width: 100%;
 }

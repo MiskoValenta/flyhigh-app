@@ -4,7 +4,7 @@ export enum TeamRole {
     Member = "Member"
 }
 
-export enum TeamMemberStastus {
+export enum TeamMemberStatus {
     Pending = "Pending",
     Active = "Active",
     Declined = "Declined"
@@ -15,7 +15,7 @@ export interface TeamResponseDto {
     TeamName: string;
     ShortName: string;
     role: TeamRole;
-    status: TeamMemberStastus;
+    status: TeamMemberStatus;
 }
 
 export interface TeamMember {
@@ -42,6 +42,8 @@ export interface Team {
     shortName: string;
     role?: string;
     status?: string;
+    joinCode?: string;
+    createdAt?: string | Date;
 }
 
 export interface CreateTeamDto {

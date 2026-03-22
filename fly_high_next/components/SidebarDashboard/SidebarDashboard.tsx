@@ -6,7 +6,7 @@ import Image from "next/image";
 import Logo from "@/public/ballin.svg";
 import { usePathname, useRouter } from 'next/navigation';
 import { IoMenu, IoClose, IoHomeOutline, IoPeopleOutline, IoBasketballOutline, IoLogOutOutline, IoPersonOutline } from "react-icons/io5";
-import { fetchWithAuth } from '@/lib/apiClient';
+import { logout } from '@/lib/api';
 import './SidebarDashboard.css';
 
 export default function SidebarDashboard() {
@@ -16,7 +16,7 @@ export default function SidebarDashboard() {
 
     const handleLogout = async () => {
         try {
-            await fetchWithAuth('/Auth/logout', { method: 'POST' });
+            await logout();
         } catch (error) {
             console.error("Logout failed:", error);
         } finally {
@@ -67,7 +67,7 @@ export default function SidebarDashboard() {
                     </button>
                 </div>
             </aside>
-            
+
             {isMobileOpen && <div className="sidebar-overlay" onClick={() => setIsMobileOpen(false)}></div>}
         </>
     );

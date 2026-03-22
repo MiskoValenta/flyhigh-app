@@ -7,6 +7,8 @@ import { getTeamById, getMyTeams } from '@/lib/teamApi';
 import { getCurrentUser } from '@/lib/api';
 import { UserProfile } from '@/types/user';
 import { Match, AddRosterEntryDto } from '@/types/match';
+import { TeamDetail } from "@/types/team";
+import { IoLocation, IoFlash, IoEye } from "react-icons/io5";
 import './MatchDetail.css';
 
 export default function MatchDetailPage() {
@@ -15,8 +17,8 @@ export default function MatchDetailPage() {
     const matchId = params.matchId as string;
 
     const [match, setMatch] = useState<Match | null>(null);
-    const [homeTeam, setHomeTeam] = useState<any>(null);
-    const [awayTeam, setAwayTeam] = useState<any>(null);
+    const [homeTeam, setHomeTeam] = useState<TeamDetail | null>(null);
+    const [awayTeam, setAwayTeam] = useState<TeamDetail | null>(null);
     const [managedTeamIds, setManagedTeamIds] = useState<string[]>([]);
 
     const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -110,9 +112,14 @@ export default function MatchDetailPage() {
         } catch (err: any) { alert(err.message); }
     };
 
-    if (isLoading) return <div className="match-detail-container"><p>Načítám detail zápasu...</p></div>;
-    if (error) return <div className="match-detail-container"><p className="error-alert">{error}</p></div>;
-    if (!match || !currentUser) return null;
+    if (isLoading)
+        return <div className="match-detail-container"><p>Načítám detail zápasu...</p></div>;
+
+    if (error)
+        return <div className="match-detail-container"><p className="error-alert">{error}</p></div>;
+
+    if (!match || !currentUser)
+        return null;
 
     const isHomeManager = managedTeamIds.includes(match.homeTeamId);
     const isAwayManager = managedTeamIds.includes(match.awayTeamId);
@@ -132,7 +139,7 @@ export default function MatchDetailPage() {
         <div className="match-detail-container">
             <div className="glass-card match-header-card">
                 <div className="match-status-row">
-                    <span>📍 {match.location}</span>
+                    <span><IoLocation className='icon-left' /> {match.location}</span>
                     <span className="match-date">
                         {new Date(match.scheduledAt).toLocaleString('cs-CZ')}
                     </span>
@@ -146,7 +153,7 @@ export default function MatchDetailPage() {
                 </div>
 
                 {isCreator && (
-                    <div className="creator-actions-row" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    <div className="creator-actions-row flex-wrap-center">
                         {match.status === 'Accepted' && (
                             <button className="btn-primary start-match-btn" onClick={handleStartMatch}>
                                 Zahájit zápas (Odpískat začátek)
@@ -156,12 +163,12 @@ export default function MatchDetailPage() {
                         {match.status === 'InProgress' && (
                             <button className="btn-primary btn-success manage-match-btn"
                                 onClick={() => router.push(`/Dashboard/Matches/${match.id}/Live`)}>
-                                ⚡ Spravovat probíhající zápas
+                                <IoFlash className='icon-left' /> Spravovat probíhající zápas
                             </button>
                         )}
 
                         {(match.status === 'Accepted' || match.status === 'Proposed' || match.status === 'InProgress') && (
-                            <button className="btn-danger manage-match-btn" onClick={handleCancelMatch} style={{ backgroundColor: '#ef4444', color: 'white', border: 'none', borderRadius: 'var(--radius-md)' }}>
+                            <button className="btn-danger manage-match-btn" onClick={handleCancelMatch}>
                                 Zrušit / Ukončit předčasně
                             </button>
                         )}
@@ -171,7 +178,7 @@ export default function MatchDetailPage() {
                 {!isCreator && match.status === 'InProgress' && (
                     <button className="btn-primary manage-match-btn"
                         onClick={() => router.push(`/Dashboard/Matches/${match.id}/Live`)}>
-                        👁️ Sledovat zápas živě
+                        <IoEye className="icon-left" /> Sledovat zápas živě
                     </button>
                 )}
             </div>
@@ -185,7 +192,6 @@ export default function MatchDetailPage() {
                         {homeRoster.length === 0 ? <p className="waiting-text">Zatím nebyli nominováni hráči.</p> :
                             homeRoster.map((player, idx) => (
                                 <div key={idx} className="roster-item">
-                                    {/* ZMĚNA ZDE */}
                                     <span className="player-name">{getPlayerName(player.teamMemberId, homeTeam)}</span>
                                     <span className="jersey-number">{player.jerseyNumber}</span>
                                 </div>

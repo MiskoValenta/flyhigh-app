@@ -124,7 +124,7 @@ public class AuthController : ControllerBase
       HttpOnly = true,
       Secure = false, // Káre, při produkci změnit z false na true
       SameSite = SameSiteMode.Lax,
-      Expires = DateTime.UtcNow.AddMinutes(1)
+      Expires = DateTime.UtcNow.AddMinutes(60)
     };
 
     var refreshCookieOptions = new CookieOptions

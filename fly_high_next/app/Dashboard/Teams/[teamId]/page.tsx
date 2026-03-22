@@ -2,11 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getTeamById, addTeamMember, removeTeamMember, changeTeamMemberRole, updateTeam } from '@/lib/teamApi';
+import { getTeamById, addTeamMember, removeTeamMember, changeTeamMemberRole, updateTeam, deleteTeam } from '@/lib/teamApi';
 import { getCurrentUser, isManagerRole } from '@/lib/api';
 import { TeamDetail, TeamRole, TeamMember, UpdateTeamDto } from '@/types/team';
 import { UserProfile } from '@/types/user';
 import DashboardEvents from '@/components/DashboardEvents/DashboardEvents';
+import { IoPencil } from 'react-icons/io5';
 import './TeamDetail.css';
 
 export default function TeamDetailPage() {
@@ -23,7 +24,6 @@ export default function TeamDetailPage() {
     const [newMemberRole, setNewMemberRole] = useState<TeamRole>(TeamRole.Member);
     const [actionLoading, setActionLoading] = useState(false);
 
-    // Stavy pro editaci týmu
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState('');
     const [editAbbrev, setEditAbbrev] = useState('');
@@ -49,7 +49,6 @@ export default function TeamDetailPage() {
             const data = await getTeamById(teamId);
             setTeam(data);
 
-            // Nastavení výchozích hodnot pro formulář z databáze
             setEditName(data.teamName || '');
             setEditAbbrev(data.shortName || '');
             setEditDesc(data.description || '');
@@ -61,7 +60,6 @@ export default function TeamDetailPage() {
         }
     };
 
-    // --- NOVÝ HANDLER PRO ULOŽENÍ TÝMU ---
     const handleUpdateTeam = async (e: React.FormEvent) => {
         e.preventDefault();
         setEditLoading(true);
@@ -73,7 +71,7 @@ export default function TeamDetailPage() {
             };
             await updateTeam(teamId, payload);
             setIsEditing(false);
-            await fetchTeam(); // Aktualizujeme data na obrazovce
+            await fetchTeam();
         } catch (err: any) {
             alert(err.message || 'Nepodařilo se uložit změny.');
         } finally {
@@ -81,7 +79,20 @@ export default function TeamDetailPage() {
         }
     };
 
-    // --- Původní handlery ---
+    const handleDeleteTeam = async () => {
+        if (!confirm('Opravdu chcete tento tým trvale smazat? Tuto akci nelze vzít zpět.')) return;
+        setActionLoading(true);
+        try {
+            await deleteTeam(teamId);
+            alert('Tým byl úspěšně smazán.');
+            router.push('/Dashboard/Teams');
+        } catch (err: any) {
+            alert(err.message || 'Chyba při mazání týmu.');
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
     const handleAddMember = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newMemberId.trim()) return;
@@ -143,24 +154,27 @@ export default function TeamDetailPage() {
         }
     };
 
-    if (loading) return <div className="team-detail-container"><p>Načítání detailu týmu...</p></div>;
+    if (loading) return <div className="team-detail-container"><div className="dashboard-loading-screen">Načítání detailu týmu...</div></div>;
     if (error) return <div className="team-detail-container"><p className="error-alert">{error}</p></div>;
     if (!team || !currentUser) return null;
 
-    const myMemberInfo = team.members.find((m: any) => (m.userId || m.UserId) === currentUser.id);
-    const myRole = myMemberInfo ? (myMemberInfo.role !== undefined ? myMemberInfo.role : (myMemberInfo as any).Role) : null;
-    const isManager = myMemberInfo && isManagerRole(myRole);
+    const myMemberInfo = team.members.find((m: TeamMember) => m.userId === currentUser.id);
+    const myRole = myMemberInfo ? myMemberInfo.role : null;
+    const isManager = myMemberInfo && isManagerRole(myRole as string | number);
 
-    const getRoleStyling = (role: any) => {
-        if (role === 'Owner' || role === 0) return { name: 'Majitel', cssClass: 'role-owner' };
-        if (role === 'Coach' || role === 1) return { name: 'Trenér', cssClass: 'role-coach' };
+    const getRoleStyling = (role: string | number) => {
+        if (role === 'Owner' || role === 0)
+            return { name: 'Majitel', cssClass: 'role-owner' };
+
+        if (role === 'Coach' || role === 1)
+            return { name: 'Trenér', cssClass: 'role-coach' };
+
         return { name: 'Člen', cssClass: 'role-member' };
     };
 
     return (
         <div className="team-detail-container">
 
-            {/* HLAVIČKA TÝMU A EDITACE */}
             <div className="team-detail-header glass-card">
                 {isEditing ? (
                     <form className="edit-team-form" onSubmit={handleUpdateTeam}>
@@ -193,7 +207,8 @@ export default function TeamDetailPage() {
                                 rows={3}
                             />
                         </div>
-                        <div className="team-actions" style={{ justifyContent: 'flex-start' }}>
+
+                        <div className="team-actions flex-start-actions">
                             <button type="submit" className="btn-primary" disabled={editLoading}>
                                 {editLoading ? 'Ukládám...' : 'Uložit změny'}
                             </button>
@@ -206,31 +221,42 @@ export default function TeamDetailPage() {
                     <>
                         <div className="header-info">
                             <h1 className="dashboard-heading team-title-nomargin">{team.teamName}</h1>
-                                {team.shortName && (
-                                    <span className="badge-role">{team.shortName}</span>
-                                )}
+                            {team.shortName && (
+                                <span className="badge-role">{team.shortName}</span>
+                            )}
                         </div>
                         <p className="team-description">{team.description || 'Spravuj svůj tým, kontroluj soupisku a plánuj události.'}</p>
 
-                        <div className="team-actions">
-                            <button className="btn-secondary" onClick={handleLeaveTeam} disabled={actionLoading}>
-                                Opustit tým
-                            </button>
-                            {isManager && (
-                                <>
-                                    <button className="btn-primary" onClick={copyTeamId}>
+                        <div className="team-actions-container">
+                            <div className="actions-primary-row">
+                                <button className="btn-secondary btn-nowrap" onClick={handleLeaveTeam} disabled={actionLoading}>
+                                    Opustit tým
+                                </button>
+                                {isManager && (
+                                    <button className="btn-primary btn-nowrap" onClick={copyTeamId}>
                                         Zkopírovat Team ID
                                     </button>
-                                    <button className="btn-secondary" onClick={() => setIsEditing(true)}>
-                                        ✏️ Upravit informace
+                                )}
+                            </div>
+
+                            <div className="actions-secondary-row">
+                                {isManager && (
+                                    <button className="btn-secondary btn-nowrap" onClick={() => setIsEditing(true)}>
+                                        <IoPencil className="icon-left" /> Upravit informace
                                     </button>
-                                </>
-                            )}
+                                )}
+                                {(myRole === 'Owner' || myRole === 0) && team.members.length === 1 && (
+                                    <button className="btn-danger btn-nowrap" onClick={handleDeleteTeam} disabled={actionLoading}>
+                                        Smazat tým
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </>
                 )}
             </div>
 
+            {/* SOUPISKA TÝMU */}
             <div className="team-members-section glass-card">
                 <h2>Soupiska týmu</h2>
                 {team.members.length === 0 ? (

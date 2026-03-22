@@ -129,3 +129,14 @@ export const updateTeam = async (teamId: string, data: UpdateTeamDto): Promise<v
         throw new Error(errorData.message || 'Nepodařilo se aktualizovat údaje o týmu.');
     }
 };
+
+export const deleteTeam = async (teamId: string) => {
+    const res = await fetchWithAuth(`/Team/${teamId}`, { method: 'DELETE' });
+
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Nepodařilo se smazat tým.');
+    }
+
+    return true;
+};

@@ -1,10 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import "@/app/globals.css";
 import "./Home.css";
+import { VideoJSProps } from '@/types/videoJs';
+
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
 
 import {
     IoStatsChart,
@@ -15,15 +19,49 @@ import {
 
 import LoginModal from "@/app/Login/LoginModal";
 
-export default function Hero() {
+const VideoJS = ({ options }: VideoJSProps) => {
+    const videoRef = useRef<HTMLDivElement>(null);
+    const playerRef = useRef<any>(null);
 
+    useEffect(() => {
+        if (!playerRef.current) {
+            const videoElement = document.createElement("video-js");
+            videoElement.classList.add("vjs-big-play-centered", "VideoModalPlayer");
+
+            if (videoRef.current) {
+                videoRef.current.appendChild(videoElement);
+            }
+
+            playerRef.current = videojs(videoElement, options);
+        } else {
+            const player = playerRef.current;
+            player.autoplay(options.autoplay);
+            player.src(options.sources);
+        }
+    }, [options]);
+
+    useEffect(() => {
+        return () => {
+            if (playerRef.current && typeof playerRef.current.isDisposed === 'function' && !playerRef.current.isDisposed()) {
+                playerRef.current.dispose();
+                playerRef.current = null;
+            }
+        };
+    }, []);
+
+    return (
+        <div data-vjs-player className="VideoPlayerWrapper">
+            <div ref={videoRef} />
+        </div>
+    );
+};
+export default function Hero() {
     const [isLoginOpen, setLoginOpen] = useState(false);
     const [isVideoModalOpen, setVideoModalOpen] = useState(false);
 
     return (
         <>
             <div className="section-container">
-
                 <div className="HeroBackground">
                     <div className="FloatingElement Card-1">
                         <div className="MiniCardHeader">
@@ -86,8 +124,8 @@ export default function Hero() {
                     isOpen={isLoginOpen}
                     onClose={() => setLoginOpen(false)}
                 />
-
             </div>
+
             <div className="section-container video-section">
                 <div className="video-wrapper" onClick={() => setVideoModalOpen(true)}>
                     <video
@@ -114,15 +152,18 @@ export default function Hero() {
                             <IoClose />
                         </button>
 
-                        <video
-                            className="VideoModalPlayer"
-                            controls
-                            autoPlay
-                            playsInline
-                        >
-                            <source src="/mat-vid-mp4.mp4" type="video/mp4" />
-                            Váš prohlížeč nepodporuje přehrávání videa.
-                        </video>
+                        <VideoJS
+                            options={{
+                                autoplay: true,
+                                controls: true,
+                                responsive: true,
+                                fluid: true,
+                                sources: [{
+                                    src: '/mat-vid-mp4.mp4',
+                                    type: 'video/mp4'
+                                }]
+                            }}
+                        />
 
                     </div>
                 </div>

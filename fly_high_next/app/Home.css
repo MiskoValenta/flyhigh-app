@@ -395,6 +395,16 @@
     outline: none;
 }
 
+.VideoPlayerWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.VideoPlayerWrapper .video-js {
+    width: 100%;
+    height: 100%;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

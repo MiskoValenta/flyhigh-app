@@ -123,7 +123,7 @@ public class AuthController : ControllerBase
     {
       HttpOnly = true,
       Secure = true, // Káre, při produkci změnit z false na true
-      SameSite = SameSiteMode.Lax,
+      SameSite = SameSiteMode.None,
       Expires = DateTime.UtcNow.AddMinutes(60)
     };
 
@@ -131,7 +131,7 @@ public class AuthController : ControllerBase
     {
       HttpOnly = true,
       Secure = true,
-      SameSite = SameSiteMode.Lax,
+      SameSite = SameSiteMode.None,
       Expires = DateTime.UtcNow.AddDays(7)
     };
 

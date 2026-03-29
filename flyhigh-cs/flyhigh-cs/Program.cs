@@ -1,4 +1,3 @@
-
 using API.Services.Teams;
 using Application.Common.Interfaces;
 using Application.Interfaces.Events;
@@ -23,6 +22,7 @@ using Infrastructure.Persistence.Repositories.Users;
 using Infrastructure.Security;
 using Infrastructure.Services.Emails;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -44,12 +44,17 @@ namespace API
       {
         options.AddPolicy("FrontendPolicy", policy =>
         {
-          policy.WithOrigins("http://localhost:3000", "http://192.168.56.1:3000", "https://flyhigh.cz")
+          policy.WithOrigins(
+                  "http://localhost:3000",
+                  "http://192.168.56.1:3000",
+                  "https://flyhigh-volleyball.cz",
+                  "https://www.flyhigh-volleyball.cz")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
         });
       });
+
       builder.Services.AddSingleton<ISetRules, VolleyballSetRules>();
       builder.Services.AddSingleton<IMatchRules, VolleyballMatchRules>();
 
@@ -109,6 +114,11 @@ namespace API
       builder.Services.AddAuthorization();
 
       var app = builder.Build();
+
+      app.UseForwardedHeaders(new ForwardedHeadersOptions
+      {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+      });
 
       using (var scope = app.Services.CreateScope())
       {

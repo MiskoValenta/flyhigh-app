@@ -122,7 +122,7 @@ public class AuthController : ControllerBase
     var cookieOptions = new CookieOptions
     {
       HttpOnly = true,
-      Secure = false, // Káre, při produkci změnit z false na true
+      Secure = true, // Káre, při produkci změnit z false na true
       SameSite = SameSiteMode.Lax,
       Expires = DateTime.UtcNow.AddMinutes(60)
     };
@@ -130,7 +130,7 @@ public class AuthController : ControllerBase
     var refreshCookieOptions = new CookieOptions
     {
       HttpOnly = true,
-      Secure = false,
+      Secure = true,
       SameSite = SameSiteMode.Lax,
       Expires = DateTime.UtcNow.AddDays(7)
     };

@@ -1,11 +1,10 @@
 import { fetchWithAuth } from './apiClient';
 import { UserProfile } from '@/types/user';
 
-const isClient = typeof window !== 'undefined';
 
-export const BASE_URL = isClient
-    ? '/api'
-    : `${process.env.INTERNAL_BACKEND_URL || 'http://flyhigh_backend:5000'}/api`;
+const BASE_URL = typeof window !== 'undefined'
+    ? process.env.NEXT_PUBLIC_API_URL
+    : process.env.INTERNAL_BACKEND_URL;
 
 export const login = async (credentials: any) => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
